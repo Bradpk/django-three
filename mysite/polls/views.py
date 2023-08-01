@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group
+from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
 from rest_framework import permissions
 from .serializers import UserSerializer, GroupSerializer, RandomSerializer
@@ -28,8 +29,18 @@ class RandomViewSet(viewsets.ModelViewSet):
 
 #------------------------------------------------
 
-# def random_list(request):
-#     data = 
+def random_list(request):
+    random_stuff = Random.objects.select_related().all()
+    data = []
+
+    for item in random_stuff:
+        data.append({
+            'one': item.one,
+            'two': item.two,
+            'three': item.three,
+        })
+
+    return JsonResponse(data, safe=False)
 
 
 
