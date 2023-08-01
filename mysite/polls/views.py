@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
-from .serializers import UserSerializer, GroupSerializer
+from .serializers import UserSerializer, GroupSerializer, RandomSerializer
+from .models import Random
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -19,7 +20,19 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
+
+class RandomViewSet(viewsets.ModelViewSet):
+     queryset = Random.objects.all()
+     serializer_class = RandomSerializer
+
+#------------------------------------------------
+
+# def random_list(request):
+#     data = 
+
+
+
 
 
 
